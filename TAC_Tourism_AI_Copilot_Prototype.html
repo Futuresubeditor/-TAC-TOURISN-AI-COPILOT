@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TAC — Tourism AI Copilot</title>
+<style>
+:root{--bg:#07111f;--panel:#0d1b2e;--panel2:#12243a;--text:#eef6ff;--muted:#91a5bc;--accent:#36d6a3;--accent2:#55a8ff;--line:#1e3550;--danger:#ffb454}
+*{box-sizing:border-box} body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:linear-gradient(135deg,#06101c,#0b1728 55%,#071522);color:var(--text)}
+button,input,select{font:inherit} button{cursor:pointer}
+.nav{height:72px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 6%;background:rgba(7,17,31,.86);backdrop-filter:blur(12px);position:sticky;top:0;z-index:10}
+.logo{font-weight:900;font-size:25px;letter-spacing:-1px}.logo span{color:var(--accent)} .badge{font-size:11px;color:var(--accent);border:1px solid #225c4b;border-radius:99px;padding:6px 10px}
+.wrap{width:min(1180px,92%);margin:auto}.hero{padding:62px 0 32px;text-align:center}.eyebrow{color:var(--accent);font-weight:800;font-size:13px;letter-spacing:2px;text-transform:uppercase}.hero h1{font-size:clamp(40px,6vw,72px);line-height:.98;margin:14px auto;max-width:850px;letter-spacing:-3px}.hero h1 span{color:var(--accent)}.hero p{color:var(--muted);font-size:17px;max-width:680px;margin:0 auto 28px;line-height:1.6}
+.demo{display:grid;grid-template-columns:380px 1fr;gap:18px;align-items:start;margin:25px auto 55px}.card{background:linear-gradient(180deg,rgba(18,36,58,.95),rgba(10,24,40,.96));border:1px solid var(--line);border-radius:20px;padding:22px;box-shadow:0 20px 60px rgba(0,0,0,.18)}.card h2{font-size:19px;margin:0 0 6px}.sub{color:var(--muted);font-size:13px;margin-bottom:18px}
+label{display:block;color:#b9c9d9;font-size:12px;font-weight:700;margin:14px 0 7px}.field{width:100%;background:#091829;border:1px solid #25405d;color:var(--text);padding:12px 13px;border-radius:11px;outline:none}.field:focus{border-color:var(--accent)}.chips{display:flex;gap:7px;flex-wrap:wrap}.chip{border:1px solid #29445e;background:#0b1c30;color:#a9bbcf;border-radius:99px;padding:8px 11px;font-size:12px}.chip.active{background:#123b36;color:#7ef0c8;border-color:#277761}.primary{width:100%;border:0;background:linear-gradient(90deg,var(--accent),#42b7ff);color:#03131b;font-weight:900;padding:14px;border-radius:12px;margin-top:20px;box-shadow:0 10px 30px rgba(54,214,163,.15)}
+.status{display:none;margin-top:13px;text-align:center;color:var(--accent);font-size:12px}.results{min-height:590px}.results.empty{display:flex;align-items:center;justify-content:center;text-align:center}.emptybox{max-width:420px}.orb{width:70px;height:70px;border-radius:50%;margin:0 auto 18px;background:radial-gradient(circle at 35% 30%,#73ffd1,#159e80 48%,#102e39);box-shadow:0 0 50px rgba(54,214,163,.18)}
+.topline{display:flex;justify-content:space-between;align-items:center;margin-bottom:17px}.pill{font-size:11px;color:var(--accent);background:#10352e;padding:7px 10px;border-radius:99px}.summary{color:var(--muted);font-size:13px;line-height:1.5}
+.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:17px 0}.metric{background:#09192b;border:1px solid var(--line);border-radius:13px;padding:13px}.metric b{display:block;font-size:18px}.metric span{font-size:11px;color:var(--muted)}
+.timeline{display:grid;gap:10px}.stop{display:grid;grid-template-columns:76px 1fr auto;gap:12px;align-items:center;background:#09192b;border:1px solid var(--line);border-radius:14px;padding:13px}.time{color:var(--accent);font-weight:800;font-size:12px}.stop h3{margin:0 0 4px;font-size:14px}.stop p{margin:0;color:var(--muted);font-size:11px}.tag{font-size:10px;border:1px solid #304a64;border-radius:99px;padding:5px 8px;color:#b8c8d8}
+.section{margin:0 auto 55px}.section h2{font-size:27px;margin-bottom:8px}.section>p{color:var(--muted);max-width:700px}.features{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;margin-top:20px}.feature{padding:20px;border:1px solid var(--line);border-radius:16px;background:#0b1a2b}.icon{font-size:25px}.feature h3{font-size:15px}.feature p{font-size:12px;line-height:1.6;color:var(--muted)}
+.adapt{display:grid;grid-template-columns:1fr 1fr;gap:15px}.alert{border:1px solid #5d4321;background:#211a0d;border-radius:16px;padding:18px}.alert b{color:var(--danger)}.alt{border:1px solid #225c4b;background:#0d241f;border-radius:16px;padding:18px}.alt b{color:var(--accent)}
+footer{border-top:1px solid var(--line);padding:28px 0;color:#71859b;font-size:12px;text-align:center;margin-top:30px}
+@media(max-width:850px){.demo{grid-template-columns:1fr}.features{grid-template-columns:1fr}.adapt{grid-template-columns:1fr}.hero h1{letter-spacing:-2px}.nav{padding:0 4%}.results{min-height:400px}}
+</style>
+</head>
+<body>
+<nav class="nav"><div class="logo">TAC<span>•</span></div><div class="badge">TOURISM AI COPILOT · LIVE DEMO</div></nav>
+
+<main class="wrap">
+<section class="hero">
+<div class="eyebrow">AI × Tourism</div>
+<h1>Travel less like a tourist.<br><span>Experience more.</span></h1>
+<p>TAC turns your preferences, budget and available time into a personalized travel plan — then adapts it when the real world changes.</p>
+</section>
+
+<section class="demo">
+<div class="card">
+<h2>Build my trip</h2><div class="sub">Tell TAC what kind of experience you want.</div>
+<label>Destination</label><input id="destination" class="field" value="Bengaluru" placeholder="City or destination">
+<label>Time available</label><select id="time" class="field"><option>1 day</option><option>Half day</option><option>2 days</option></select>
+<label>Budget</label><select id="budget" class="field"><option>₹2,000</option><option>₹1,000</option><option>₹5,000</option></select>
+<label>What are you into?</label>
+<div class="chips" id="chips"><button class="chip active" data-v="food">Local food</button><button class="chip active" data-v="culture">Culture</button><button class="chip" data-v="hidden">Hidden gems</button><button class="chip" data-v="nature">Nature</button><button class="chip" data-v="shopping">Shopping</button></div>
+<label>Travel style</label><select id="style" class="field"><option>Balanced</option><option>Slow & relaxed</option><option>Explore as much as possible</option></select>
+<button class="primary" id="generate">✦ Generate my AI itinerary</button>
+<div class="status" id="status">TAC is analyzing local context…</div>
+</div>
+
+<div class="card results empty" id="results">
+<div class="emptybox"><div class="orb"></div><h2>Your AI itinerary will appear here</h2><p class="summary">TAC will combine your preferences, time, budget and destination context to create a practical plan.</p></div>
+</div>
+</section>
+
+<section class="section">
+<h2>What makes TAC different?</h2><p>It is designed as a decision-making copilot, not just another place-search app.</p>
+<div class="features">
+<div class="feature"><div class="icon">🧠</div><h3>Personalized AI</h3><p>Understands interests, budget, time and travel style instead of showing the same tourist list to everyone.</p></div>
+<div class="feature"><div class="icon">📍</div><h3>Local discovery</h3><p>Surfaces experiences beyond the obvious landmarks — including local food, culture and lesser-known places.</p></div>
+<div class="feature"><div class="icon">⚡</div><h3>Adaptive planning</h3><p>If conditions change, TAC can recommend an alternative instead of leaving the traveler stuck with an outdated plan.</p></div>
+</div>
+</section>
+
+<section class="section">
+<h2>Real-time adaptation</h2><p>This is the “copilot” moment you can demonstrate to the judges.</p>
+<div class="adapt">
+<div class="alert">⚠️ <b>Live situation</b><br><span class="summary">A planned attraction is currently crowded and your available time has dropped.</span></div>
+<div class="alt">✓ <b>TAC adapts</b><br><span class="summary">It swaps the stop for a nearby experience and recalculates the route and budget.</span></div>
+</div>
+</section>
+</main>
+<footer>TAC — Tourism AI Copilot · Prototype for Ideathon Demonstration</footer>
+
+<script>
+const chips=[...document.querySelectorAll('.chip')];
+chips.forEach(c=>c.onclick=()=>c.classList.toggle('active'));
+document.getElementById('generate').onclick=()=>{
+ const btn=document.getElementById('generate'), status=document.getElementById('status'), results=document.getElementById('results');
+ const city=document.getElementById('destination').value.trim()||'your city';
+ const time=document.getElementById('time').value, budget=document.getElementById('budget').value;
+ const interests=chips.filter(c=>c.classList.contains('active')).map(c=>c.dataset.v);
+ btn.disabled=true; status.style.display='block'; status.textContent='✦ TAC is analyzing local context…';
+ setTimeout(()=>{
+  const isB=city.toLowerCase().includes('bengaluru')||city.toLowerCase().includes('bangalore');
+  const places=isB ? [
+   ['09:00','Lalbagh Botanical Garden','Relaxed start • nature + local atmosphere','Nature'],
+   ['11:15','Bengaluru Local Food Trail','South Indian breakfast + local specialties','Food'],
+   ['13:00','Cubbon Park & State Central Library','Culture • green space • short walk','Culture'],
+   ['15:00','KR Market Local Discovery','Colorful local market • hidden-gem feel','Local'],
+   ['17:30','VV Puram Food Street','Street food + evening experience','Food']
+  ] : [
+   ['09:00','Historic City Walk','Local landmark + cultural context','Culture'],
+   ['11:30','Local Food Experience','Recommended dishes based on your interests','Food'],
+   ['14:00','Hidden Local Gem','Less-touristy experience nearby','Discovery'],
+   ['16:30','Local Market / Craft Stop','Support local businesses and culture','Local'],
+   ['18:30','Sunset Experience','Finish with a highly rated nearby viewpoint','Experience']
+  ];
+  const total=budget==='₹1,000'?'₹850–₹950':budget==='₹5,000'?'₹2,100–₹3,000':'₹1,300–₹1,800';
+  results.classList.remove('empty');
+  results.innerHTML=`<div style="width:100%">
+   <div class="topline"><div><h2 style="margin:0">Your ${city} plan</h2><div class="summary">AI-generated for ${time} · ${interests.length?interests.join(' + '):'balanced experiences'}</div></div><span class="pill">AI OPTIMIZED</span></div>
+   <div class="metrics"><div class="metric"><b>${total}</b><span>Estimated spend</span></div><div class="metric"><b>~8.5 km</b><span>Smart route</span></div><div class="metric"><b>5 stops</b><span>Experiences</span></div></div>
+   <div class="timeline">${places.map(x=>`<div class="stop"><div class="time">${x[0]}</div><div><h3>${x[1]}</h3><p>${x[2]}</p></div><span class="tag">${x[3]}</span></div>`).join('')}</div>
+   <div style="margin-top:14px;padding:13px;border:1px solid #225c4b;background:#0c211d;border-radius:13px;font-size:12px;color:#a9cbbf">✦ <b style="color:#65e5bf">TAC insight:</b> Your route prioritizes experiences close to each other to reduce travel time while keeping the day varied.</div>
+  </div>`;
+  status.style.display='none'; btn.disabled=false; btn.textContent='↻ Regenerate itinerary';
+ },900);
+};
+</script>
+</body>
+</html>
